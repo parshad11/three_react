@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ShapePreview from './ShapePreview';
+import VerticesList from './VerticesList';
 
-function App() {
+const App = () => {
+  const [points, setPoints] = useState([]);
+
+  const addPoint = (event) => {
+    const { clientX, clientY } = event;
+    const newPoint = { x: clientX, y: clientY };
+    setPoints([...points, newPoint]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: '100vh' }}>
+       <ShapePreview points={points} />
+      <VerticesList points={points} onAddPoint={addPoint} />
     </div>
   );
-}
+};
 
 export default App;
